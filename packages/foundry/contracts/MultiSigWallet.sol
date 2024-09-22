@@ -9,7 +9,7 @@ contract MultiSigWallet {
 
     struct Transaction {
         bool executed;          // 是否已执行
-        uint128 Confirmations;  // 已获得的确认数
+        uint128 confirmations;  // 已获得的确认数
         address destination;    // 目标地址
         uint256 value;          // 交易金额
         bytes data;             // 交易数据
@@ -51,7 +51,7 @@ contract MultiSigWallet {
         transactions.push(
             Transaction({
                 executed: false,
-                Confirmations: 0,
+                confirmations: 0,
                 destination: _destination,
                 value: _value,
                 data: _data
@@ -68,18 +68,20 @@ contract MultiSigWallet {
         require(!transactions[_txIndex].executed, "Transaction already executed");
 
         isConfirmed[_txIndex][msg.sender] = true;
-        transactions[_txIndex].Confirmations++;
+        transactions[_txIndex].confirmations++;
 
         emit TransactionConfirmed(_txIndex, msg.sender);
     }
 
     // 执行交易
     function executeTransaction(uint256 _txIndex) public {
-        require(_txIndex < transactions.length, "Invalid transaction index");
-        require(!transactions[_txIndex].executed, "Transaction already executed");
-        require(transactions[_txIndex].Confirmations >= ownersCountForConfirmation, "Not enough confirmations");
-
         Transaction storage transaction = transactions[_txIndex];
+
+        require(_txIndex < transactions.length, "Invalid transaction index");
+        require(!transaction.executed, "Transaction already executed");
+        require(transaction.confirmations >= ownersCountForConfirmation, "Not enough confirmations");
+        require(address(this).balance >= transaction.value, "Insufficient balance");
+
         transaction.executed = true;
         (bool success, ) = transaction.destination.call{value: transaction.value}(transaction.data);
         require(success, "Transaction execution failed");

@@ -1,6 +1,8 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 import "../contracts/MultiSigWallet.sol";
+import "../contracts/MerkleAirdropToken.sol";
+import "../contracts/MerkleAirdrop.sol";
 import "./DeployHelpers.s.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
@@ -15,19 +17,39 @@ contract DeployScript is ScaffoldETHDeploy {
     }
     vm.startBroadcast(deployerPrivateKey);
 
-    address[] memory owners = new address[](3);
-    // owners[0] = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
-    // owners[1] = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8;
-    // owners[2] = 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC;
-    owners[0] = 0xCE733Fa2f9dd9Aee9353248fB0F237b0522af73E;
-    owners[1] = 0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E;
-    owners[2] = 0xDD73b74016a3Ca58765f932b0104126948c5D46A;
-    MultiSigWallet wallet = new MultiSigWallet(owners,2);
+
+    // ===== MultiSigWallet Script Start =====
+    // address[] memory owners = new address[](3);
+    // owners[0] = 0xCE733Fa2f9dd9Aee9353248fB0F237b0522af73E;
+    // owners[1] = 0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E;
+    // owners[2] = 0xDD73b74016a3Ca58765f932b0104126948c5D46A;
+    // MultiSigWallet wallet = new MultiSigWallet(owners,2);
+    // console.logString(
+    //   string.concat(
+    //     "MultiSigWallet deployed at: ", vm.toString(address(wallet))
+    //   )
+    // );
+    // ===== MultiSigWallet Script Stop =====
+
+    // ===== MerkleAirdrop Script Start =====
+    MerkleAirdropToken merkleAirdropToken = new MerkleAirdropToken(
+      0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E
+    );
+    MerkleAirdrop merkleAirdrop = new MerkleAirdrop(
+      address(merkleAirdropToken), // token address
+      0x26fae51b60a8e480925a41bc9076e8661aa986919d77f5e1459cb5c699b9adfc // merkle root
+    );
     console.logString(
       string.concat(
-        "MultiSigWallet deployed at: ", vm.toString(address(wallet))
+        "MerkleAirdropToken deployed at: ", vm.toString(address(merkleAirdropToken))
       )
     );
+    console.logString(
+      string.concat(
+        "merkleAirdrop deployed at: ", vm.toString(address(merkleAirdrop))
+      )
+    );
+    // ===== MerkleAirdrop Script Stop =====
 
     vm.stopBroadcast();
 

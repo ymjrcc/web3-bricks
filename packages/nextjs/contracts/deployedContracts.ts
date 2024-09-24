@@ -6,119 +6,31 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
   31337: {
-    MultiSigWallet: {
-      address: "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+    MerkleAirdropToken: {
+      address: "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
       abi: [
         {
           type: "constructor",
           inputs: [
             {
-              name: "_owners",
-              type: "address[]",
-              internalType: "address[]",
-            },
-            {
-              name: "_ownersCountForConfirmation",
-              type: "uint128",
-              internalType: "uint128",
+              name: "initialOwner",
+              type: "address",
+              internalType: "address",
             },
           ],
           stateMutability: "nonpayable",
         },
         {
-          type: "receive",
-          stateMutability: "payable",
-        },
-        {
           type: "function",
-          name: "confirmTransaction",
+          name: "allowance",
           inputs: [
             {
-              name: "_txIndex",
-              type: "uint256",
-              internalType: "uint256",
-            },
-          ],
-          outputs: [],
-          stateMutability: "nonpayable",
-        },
-        {
-          type: "function",
-          name: "executeTransaction",
-          inputs: [
-            {
-              name: "_txIndex",
-              type: "uint256",
-              internalType: "uint256",
-            },
-          ],
-          outputs: [],
-          stateMutability: "nonpayable",
-        },
-        {
-          type: "function",
-          name: "getOwners",
-          inputs: [],
-          outputs: [
-            {
-              name: "",
-              type: "address[]",
-              internalType: "address[]",
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "getTransactions",
-          inputs: [],
-          outputs: [
-            {
-              name: "",
-              type: "tuple[]",
-              internalType: "struct MultiSigWallet.Transaction[]",
-              components: [
-                {
-                  name: "executed",
-                  type: "bool",
-                  internalType: "bool",
-                },
-                {
-                  name: "confirmations",
-                  type: "uint128",
-                  internalType: "uint128",
-                },
-                {
-                  name: "destination",
-                  type: "address",
-                  internalType: "address",
-                },
-                {
-                  name: "value",
-                  type: "uint256",
-                  internalType: "uint256",
-                },
-                {
-                  name: "data",
-                  type: "bytes",
-                  internalType: "bytes",
-                },
-              ],
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "isConfirmed",
-          inputs: [
-            {
-              name: "",
-              type: "uint256",
-              internalType: "uint256",
+              name: "owner",
+              type: "address",
+              internalType: "address",
             },
             {
-              name: "",
+              name: "spender",
               type: "address",
               internalType: "address",
             },
@@ -126,109 +38,18 @@ const deployedContracts = {
           outputs: [
             {
               name: "",
-              type: "bool",
-              internalType: "bool",
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "isOwner",
-          inputs: [
-            {
-              name: "",
-              type: "address",
-              internalType: "address",
-            },
-          ],
-          outputs: [
-            {
-              name: "",
-              type: "bool",
-              internalType: "bool",
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "owners",
-          inputs: [
-            {
-              name: "",
               type: "uint256",
               internalType: "uint256",
             },
           ],
-          outputs: [
-            {
-              name: "",
-              type: "address",
-              internalType: "address",
-            },
-          ],
           stateMutability: "view",
         },
         {
           type: "function",
-          name: "ownersCountForConfirmation",
-          inputs: [],
-          outputs: [
-            {
-              name: "",
-              type: "uint128",
-              internalType: "uint128",
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "submitTransaction",
+          name: "approve",
           inputs: [
             {
-              name: "_destination",
-              type: "address",
-              internalType: "address",
-            },
-            {
-              name: "_value",
-              type: "uint256",
-              internalType: "uint256",
-            },
-            {
-              name: "_data",
-              type: "bytes",
-              internalType: "bytes",
-            },
-          ],
-          outputs: [],
-          stateMutability: "nonpayable",
-        },
-        {
-          type: "function",
-          name: "transactions",
-          inputs: [
-            {
-              name: "",
-              type: "uint256",
-              internalType: "uint256",
-            },
-          ],
-          outputs: [
-            {
-              name: "executed",
-              type: "bool",
-              internalType: "bool",
-            },
-            {
-              name: "confirmations",
-              type: "uint128",
-              internalType: "uint128",
-            },
-            {
-              name: "destination",
+              name: "spender",
               type: "address",
               internalType: "address",
             },
@@ -237,105 +58,539 @@ const deployedContracts = {
               type: "uint256",
               internalType: "uint256",
             },
+          ],
+          outputs: [
             {
-              name: "data",
-              type: "bytes",
-              internalType: "bytes",
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "balanceOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
           stateMutability: "view",
         },
         {
           type: "function",
-          name: "withdraw",
+          name: "decimals",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "mint",
+          inputs: [
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "name",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
           inputs: [],
           outputs: [],
           stateMutability: "nonpayable",
         },
         {
+          type: "function",
+          name: "symbol",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "totalSupply",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transfer",
+          inputs: [
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "transferFrom",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
           type: "event",
-          name: "Deposit",
+          name: "Approval",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "spender",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Transfer",
+          inputs: [
+            {
+              name: "from",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "to",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "ERC20InsufficientAllowance",
+          inputs: [
+            {
+              name: "spender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "allowance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC20InsufficientBalance",
           inputs: [
             {
               name: "sender",
               type: "address",
-              indexed: true,
               internalType: "address",
             },
             {
-              name: "value",
+              name: "balance",
               type: "uint256",
-              indexed: false,
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
               internalType: "uint256",
             },
           ],
-          anonymous: false,
         },
         {
-          type: "event",
-          name: "TransactionConfirmed",
+          type: "error",
+          name: "ERC20InvalidApprover",
           inputs: [
             {
-              name: "txIndex",
-              type: "uint256",
-              indexed: true,
-              internalType: "uint256",
+              name: "approver",
+              type: "address",
+              internalType: "address",
             },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC20InvalidReceiver",
+          inputs: [
+            {
+              name: "receiver",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC20InvalidSender",
+          inputs: [
+            {
+              name: "sender",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC20InvalidSpender",
+          inputs: [
+            {
+              name: "spender",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
             {
               name: "owner",
               type: "address",
-              indexed: true,
               internalType: "address",
             },
           ],
-          anonymous: false,
         },
         {
-          type: "event",
-          name: "TransactionExecuted",
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
           inputs: [
             {
-              name: "txIndex",
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+      ],
+      inheritedFunctions: {
+        allowance: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        approve: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        balanceOf: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        decimals: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        name: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        symbol: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        totalSupply: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        transfer: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        transferFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        owner: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        renounceOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        transferOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+      },
+    },
+    MerkleAirdrop: {
+      address: "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "token_",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "merkleRoot_",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "claim",
+          inputs: [
+            {
+              name: "proof",
+              type: "bytes32[]",
+              internalType: "bytes32[]",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "amount",
               type: "uint256",
-              indexed: true,
               internalType: "uint256",
             },
           ],
-          anonymous: false,
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "claimed",
+          inputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getLeafHash",
+          inputs: [
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "mToken",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IToken",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "merkleRoot",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "verify",
+          inputs: [
+            {
+              name: "proof",
+              type: "bytes32[]",
+              internalType: "bytes32[]",
+            },
+            {
+              name: "to",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
         },
         {
           type: "event",
-          name: "TransactionSubmitted",
+          name: "Claim",
           inputs: [
             {
-              name: "txIndex",
-              type: "uint256",
-              indexed: true,
-              internalType: "uint256",
-            },
-            {
-              name: "owner",
+              name: "to",
               type: "address",
               indexed: true,
               internalType: "address",
             },
             {
-              name: "destination",
-              type: "address",
-              indexed: true,
-              internalType: "address",
-            },
-            {
-              name: "value",
+              name: "amount",
               type: "uint256",
               indexed: false,
               internalType: "uint256",
-            },
-            {
-              name: "data",
-              type: "bytes",
-              indexed: false,
-              internalType: "bytes",
             },
           ],
           anonymous: false,

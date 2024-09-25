@@ -6,8 +6,8 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
   31337: {
-    MerkleAirdropToken: {
-      address: "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+    CFToken: {
+      address: "0x5fbdb2315678afecb367f032d93f642f64180aa3",
       abi: [
         {
           type: "constructor",
@@ -436,8 +436,8 @@ const deployedContracts = {
         transferOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
       },
     },
-    MerkleAirdrop: {
-      address: "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+    CrowdFund: {
+      address: "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
       abi: [
         {
           type: "constructor",
@@ -447,30 +447,59 @@ const deployedContracts = {
               type: "address",
               internalType: "address",
             },
-            {
-              name: "merkleRoot_",
-              type: "bytes32",
-              internalType: "bytes32",
-            },
           ],
           stateMutability: "nonpayable",
         },
         {
           type: "function",
-          name: "claim",
+          name: "campaigns",
           inputs: [
             {
-              name: "proof",
-              type: "bytes32[]",
-              internalType: "bytes32[]",
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
             },
+          ],
+          outputs: [
             {
-              name: "to",
+              name: "creator",
               type: "address",
               internalType: "address",
             },
             {
-              name: "amount",
+              name: "goal",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "pledged",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "startAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "endAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "claimed",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "cancel",
+          inputs: [
+            {
+              name: "_id",
               type: "uint256",
               internalType: "uint256",
             },
@@ -480,108 +509,264 @@ const deployedContracts = {
         },
         {
           type: "function",
-          name: "claimed",
+          name: "claim",
           inputs: [
             {
-              name: "",
-              type: "bytes32",
-              internalType: "bytes32",
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "count",
+          inputs: [],
           outputs: [
             {
               name: "",
-              type: "bool",
-              internalType: "bool",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
           stateMutability: "view",
         },
         {
           type: "function",
-          name: "getLeafHash",
+          name: "launch",
           inputs: [
             {
-              name: "to",
-              type: "address",
-              internalType: "address",
-            },
-            {
-              name: "amount",
+              name: "_goal",
               type: "uint256",
               internalType: "uint256",
+            },
+            {
+              name: "_startAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "_endAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "pledge",
+          inputs: [
+            {
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "pledgedAmount",
+          inputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
             },
           ],
           outputs: [
             {
               name: "",
-              type: "bytes32",
-              internalType: "bytes32",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
-          stateMutability: "pure",
+          stateMutability: "view",
         },
         {
           type: "function",
-          name: "mToken",
+          name: "refund",
+          inputs: [
+            {
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "token",
           inputs: [],
           outputs: [
             {
               name: "",
               type: "address",
-              internalType: "contract IToken",
+              internalType: "contract ICFToken",
             },
           ],
           stateMutability: "view",
         },
         {
           type: "function",
-          name: "merkleRoot",
-          inputs: [],
-          outputs: [
-            {
-              name: "",
-              type: "bytes32",
-              internalType: "bytes32",
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "verify",
+          name: "unpledge",
           inputs: [
             {
-              name: "proof",
-              type: "bytes32[]",
-              internalType: "bytes32[]",
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
             },
             {
-              name: "to",
-              type: "address",
-              internalType: "address",
-            },
-            {
-              name: "amount",
+              name: "_amount",
               type: "uint256",
               internalType: "uint256",
             },
           ],
-          outputs: [
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "Cancel",
+          inputs: [
             {
-              name: "",
-              type: "bool",
-              internalType: "bool",
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
             },
           ],
-          stateMutability: "view",
+          anonymous: false,
         },
         {
           type: "event",
           name: "Claim",
           inputs: [
             {
-              name: "to",
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Launch",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "creator",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "goal",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+            {
+              name: "startAt",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+            {
+              name: "endAt",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Pledge",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "caller",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Refund",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "caller",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Unpledge",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "caller",
               type: "address",
               indexed: true,
               internalType: "address",

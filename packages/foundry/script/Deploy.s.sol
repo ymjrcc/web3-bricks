@@ -1,8 +1,10 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 import "../contracts/MultiSigWallet.sol";
 import "../contracts/MerkleAirdropToken.sol";
 import "../contracts/MerkleAirdrop.sol";
+import "../contracts/CFToken.sol";
+import "../contracts/CrowdFund.sol";
 import "./DeployHelpers.s.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
@@ -32,24 +34,39 @@ contract DeployScript is ScaffoldETHDeploy {
     // ===== MultiSigWallet Script Stop =====
 
     // ===== MerkleAirdrop Script Start =====
-    MerkleAirdropToken merkleAirdropToken = new MerkleAirdropToken(
-      0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E
-    );
-    MerkleAirdrop merkleAirdrop = new MerkleAirdrop(
-      address(merkleAirdropToken), // token address
-      0x26fae51b60a8e480925a41bc9076e8661aa986919d77f5e1459cb5c699b9adfc // merkle root
-    );
-    console.logString(
-      string.concat(
-        "MerkleAirdropToken deployed at: ", vm.toString(address(merkleAirdropToken))
-      )
-    );
-    console.logString(
-      string.concat(
-        "merkleAirdrop deployed at: ", vm.toString(address(merkleAirdrop))
-      )
-    );
+    // MerkleAirdropToken merkleAirdropToken = new MerkleAirdropToken(
+    //   0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E
+    // );
+    // MerkleAirdrop merkleAirdrop = new MerkleAirdrop(
+    //   address(merkleAirdropToken), // token address
+    //   0x26fae51b60a8e480925a41bc9076e8661aa986919d77f5e1459cb5c699b9adfc // merkle root
+    // );
+    // console.logString(
+    //   string.concat(
+    //     "MerkleAirdropToken deployed at: ", vm.toString(address(merkleAirdropToken))
+    //   )
+    // );
+    // console.logString(
+    //   string.concat(
+    //     "merkleAirdrop deployed at: ", vm.toString(address(merkleAirdrop))
+    //   )
+    // );
     // ===== MerkleAirdrop Script Stop =====
+
+    // ===== CrowdFund Script Start =====
+    CFToken cfToken = new CFToken(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    CrowdFund crowdFund = new CrowdFund(address(cfToken));
+    console.logString(
+      string.concat(
+        "CFToken deployed at: ", vm.toString(address(cfToken))
+      )
+    );
+    console.logString(
+      string.concat(
+        "CrowdFund deployed at: ", vm.toString(address(crowdFund))
+      )
+    );
+    // ===== CrowdFund Script Stop =====
 
     vm.stopBroadcast();
 

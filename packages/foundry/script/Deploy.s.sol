@@ -54,7 +54,7 @@ contract DeployScript is ScaffoldETHDeploy {
     // ===== MerkleAirdrop Script Stop =====
 
     // ===== CrowdFund Script Start =====
-    CFToken cfToken = new CFToken(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    CFToken cfToken = new CFToken(0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E);
     CrowdFund crowdFund = new CrowdFund(address(cfToken));
     console.logString(
       string.concat(

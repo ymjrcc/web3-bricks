@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
+import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol";
 
-interface ICFToken {
+interface ICFToken is IERC20Permit {
     function transfer(address, uint256) external returns (bool);
     function transferFrom(address, address, uint256) external returns (bool);
 }
@@ -53,7 +54,7 @@ contract CrowdFund {
         emit Cancel(_id);
     }
 
-    function pledge(uint256 _id, uint256 _amount) external {
+    function pledge(uint256 _id, uint256 _amount) public {
         Campaign storage campaign = campaigns[_id];
         require(campaign.creator != address(0), "Campaign not found");
         require(block.timestamp >= campaign.startAt, "Campaign not started");
@@ -65,6 +66,12 @@ contract CrowdFund {
         token.transferFrom(msg.sender, address(this), _amount);
 
         emit Pledge(_id, msg.sender, _amount);
+    }
+
+    function permitPledge(uint256 _id, uint256 _amount, uint256 _deadline, uint8 _v, bytes32 _r, bytes32 _s) external {
+        require(block.timestamp <= _deadline, "Signature expired");
+        token.permit(msg.sender, address(this), _amount, _deadline, _v, _r, _s);
+        pledge(_id, _amount);
     }
 
     function unpledge(uint256 _id, uint256 _amount) external {

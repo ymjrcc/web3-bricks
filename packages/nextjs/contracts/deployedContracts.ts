@@ -22,6 +22,19 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "DOMAIN_SEPARATOR",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
           name: "allowance",
           inputs: [
             {
@@ -89,6 +102,37 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "burn",
+          inputs: [
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "burnFrom",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
           name: "decimals",
           inputs: [],
           outputs: [
@@ -96,6 +140,49 @@ const deployedContracts = {
               name: "",
               type: "uint8",
               internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "eip712Domain",
+          inputs: [],
+          outputs: [
+            {
+              name: "fields",
+              type: "bytes1",
+              internalType: "bytes1",
+            },
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "version",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "chainId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "verifyingContract",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "salt",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "extensions",
+              type: "uint256[]",
+              internalType: "uint256[]",
             },
           ],
           stateMutability: "view",
@@ -133,6 +220,25 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "nonces",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
           name: "owner",
           inputs: [],
           outputs: [
@@ -143,6 +249,49 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "permit",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "spender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "deadline",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "v",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "r",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "s",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -270,6 +419,12 @@ const deployedContracts = {
         },
         {
           type: "event",
+          name: "EIP712DomainChanged",
+          inputs: [],
+          anonymous: false,
+        },
+        {
+          type: "event",
           name: "OwnershipTransferred",
           inputs: [
             {
@@ -311,6 +466,33 @@ const deployedContracts = {
             },
           ],
           anonymous: false,
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignature",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignatureLength",
+          inputs: [
+            {
+              name: "length",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignatureS",
+          inputs: [
+            {
+              name: "s",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
         },
         {
           type: "error",
@@ -400,6 +582,54 @@ const deployedContracts = {
         },
         {
           type: "error",
+          name: "ERC2612ExpiredSignature",
+          inputs: [
+            {
+              name: "deadline",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC2612InvalidSigner",
+          inputs: [
+            {
+              name: "signer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InvalidAccountNonce",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "currentNonce",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InvalidShortString",
+          inputs: [],
+        },
+        {
+          type: "error",
           name: "OwnableInvalidOwner",
           inputs: [
             {
@@ -420,20 +650,37 @@ const deployedContracts = {
             },
           ],
         },
+        {
+          type: "error",
+          name: "StringTooLong",
+          inputs: [
+            {
+              name: "str",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+        },
       ],
       inheritedFunctions: {
-        allowance: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        approve: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        balanceOf: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        decimals: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        name: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        symbol: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        totalSupply: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        transfer: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        transferFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        allowance: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        approve: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        balanceOf: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        decimals: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        name: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        symbol: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        totalSupply: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        transfer: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        transferFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        burn: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        burnFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol",
         owner: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
         renounceOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
         transferOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        DOMAIN_SEPARATOR: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        eip712Domain: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        nonces: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        permit: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
       },
     },
     CrowdFund: {
@@ -551,6 +798,44 @@ const deployedContracts = {
               name: "_endAt",
               type: "uint32",
               internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "permitPledge",
+          inputs: [
+            {
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_deadline",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_v",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "_r",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "_s",
+              type: "bytes32",
+              internalType: "bytes32",
             },
           ],
           outputs: [],
@@ -781,12 +1066,16 @@ const deployedContracts = {
           anonymous: false,
         },
       ],
-      inheritedFunctions: {},
+      inheritedFunctions: {
+        DOMAIN_SEPARATOR: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol",
+        nonces: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol",
+        permit: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol",
+      },
     },
   },
   11155111: {
-    MerkleAirdropToken: {
-      address: "0xeec43bbde21145f2de7e8d27d405cf450ceef660",
+    CFToken: {
+      address: "0x4a6490eb1d5ebfe42aae0bea56d9ba4e67a3d4d0",
       abi: [
         {
           type: "constructor",
@@ -798,6 +1087,19 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "DOMAIN_SEPARATOR",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "view",
         },
         {
           type: "function",
@@ -868,6 +1170,37 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "burn",
+          inputs: [
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "burnFrom",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
           name: "decimals",
           inputs: [],
           outputs: [
@@ -875,6 +1208,49 @@ const deployedContracts = {
               name: "",
               type: "uint8",
               internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "eip712Domain",
+          inputs: [],
+          outputs: [
+            {
+              name: "fields",
+              type: "bytes1",
+              internalType: "bytes1",
+            },
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "version",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "chainId",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "verifyingContract",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "salt",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "extensions",
+              type: "uint256[]",
+              internalType: "uint256[]",
             },
           ],
           stateMutability: "view",
@@ -912,6 +1288,25 @@ const deployedContracts = {
         },
         {
           type: "function",
+          name: "nonces",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
           name: "owner",
           inputs: [],
           outputs: [
@@ -922,6 +1317,49 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "permit",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "spender",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "deadline",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "v",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "r",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "s",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
         },
         {
           type: "function",
@@ -1049,6 +1487,12 @@ const deployedContracts = {
         },
         {
           type: "event",
+          name: "EIP712DomainChanged",
+          inputs: [],
+          anonymous: false,
+        },
+        {
+          type: "event",
           name: "OwnershipTransferred",
           inputs: [
             {
@@ -1090,6 +1534,33 @@ const deployedContracts = {
             },
           ],
           anonymous: false,
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignature",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignatureLength",
+          inputs: [
+            {
+              name: "length",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignatureS",
+          inputs: [
+            {
+              name: "s",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
         },
         {
           type: "error",
@@ -1179,6 +1650,54 @@ const deployedContracts = {
         },
         {
           type: "error",
+          name: "ERC2612ExpiredSignature",
+          inputs: [
+            {
+              name: "deadline",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ERC2612InvalidSigner",
+          inputs: [
+            {
+              name: "signer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InvalidAccountNonce",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "currentNonce",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InvalidShortString",
+          inputs: [],
+        },
+        {
+          type: "error",
           name: "OwnableInvalidOwner",
           inputs: [
             {
@@ -1199,24 +1718,41 @@ const deployedContracts = {
             },
           ],
         },
+        {
+          type: "error",
+          name: "StringTooLong",
+          inputs: [
+            {
+              name: "str",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+        },
       ],
       inheritedFunctions: {
-        allowance: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        approve: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        balanceOf: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        decimals: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        name: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        symbol: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        totalSupply: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        transfer: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
-        transferFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol",
+        allowance: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        approve: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        balanceOf: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        decimals: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        name: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        symbol: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        totalSupply: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        transfer: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        transferFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        burn: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        burnFrom: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol",
         owner: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
         renounceOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
         transferOwnership: "lib/openzeppelin-contracts/contracts/access/Ownable.sol",
+        DOMAIN_SEPARATOR: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        eip712Domain: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        nonces: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
+        permit: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol",
       },
     },
-    MerkleAirdrop: {
-      address: "0x8cb7f4e5fa6194994e4f36e75a21825daf5b9fd3",
+    CrowdFund: {
+      address: "0xe2a72525dc19e416382f142b8d4650cfa102838e",
       abi: [
         {
           type: "constructor",
@@ -1226,30 +1762,59 @@ const deployedContracts = {
               type: "address",
               internalType: "address",
             },
-            {
-              name: "merkleRoot_",
-              type: "bytes32",
-              internalType: "bytes32",
-            },
           ],
           stateMutability: "nonpayable",
         },
         {
           type: "function",
-          name: "claim",
+          name: "campaigns",
           inputs: [
             {
-              name: "proof",
-              type: "bytes32[]",
-              internalType: "bytes32[]",
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
             },
+          ],
+          outputs: [
             {
-              name: "to",
+              name: "creator",
               type: "address",
               internalType: "address",
             },
             {
-              name: "amount",
+              name: "goal",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "pledged",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "startAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "endAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "claimed",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "cancel",
+          inputs: [
+            {
+              name: "_id",
               type: "uint256",
               internalType: "uint256",
             },
@@ -1259,108 +1824,302 @@ const deployedContracts = {
         },
         {
           type: "function",
-          name: "claimed",
+          name: "claim",
           inputs: [
             {
-              name: "",
-              type: "bytes32",
-              internalType: "bytes32",
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "count",
+          inputs: [],
           outputs: [
             {
               name: "",
-              type: "bool",
-              internalType: "bool",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
           stateMutability: "view",
         },
         {
           type: "function",
-          name: "getLeafHash",
+          name: "launch",
           inputs: [
             {
-              name: "to",
-              type: "address",
-              internalType: "address",
-            },
-            {
-              name: "amount",
+              name: "_goal",
               type: "uint256",
               internalType: "uint256",
+            },
+            {
+              name: "_startAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "_endAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "permitPledge",
+          inputs: [
+            {
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_deadline",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_v",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "_r",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "_s",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "pledge",
+          inputs: [
+            {
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "_amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "pledgedAmount",
+          inputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
             },
           ],
           outputs: [
             {
               name: "",
-              type: "bytes32",
-              internalType: "bytes32",
+              type: "uint256",
+              internalType: "uint256",
             },
           ],
-          stateMutability: "pure",
+          stateMutability: "view",
         },
         {
           type: "function",
-          name: "mToken",
+          name: "refund",
+          inputs: [
+            {
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "token",
           inputs: [],
           outputs: [
             {
               name: "",
               type: "address",
-              internalType: "contract IToken",
+              internalType: "contract ICFToken",
             },
           ],
           stateMutability: "view",
         },
         {
           type: "function",
-          name: "merkleRoot",
-          inputs: [],
-          outputs: [
-            {
-              name: "",
-              type: "bytes32",
-              internalType: "bytes32",
-            },
-          ],
-          stateMutability: "view",
-        },
-        {
-          type: "function",
-          name: "verify",
+          name: "unpledge",
           inputs: [
             {
-              name: "proof",
-              type: "bytes32[]",
-              internalType: "bytes32[]",
+              name: "_id",
+              type: "uint256",
+              internalType: "uint256",
             },
             {
-              name: "to",
-              type: "address",
-              internalType: "address",
-            },
-            {
-              name: "amount",
+              name: "_amount",
               type: "uint256",
               internalType: "uint256",
             },
           ],
-          outputs: [
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "Cancel",
+          inputs: [
             {
-              name: "",
-              type: "bool",
-              internalType: "bool",
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
             },
           ],
-          stateMutability: "view",
+          anonymous: false,
         },
         {
           type: "event",
           name: "Claim",
           inputs: [
             {
-              name: "to",
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Launch",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "creator",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "goal",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+            {
+              name: "startAt",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+            {
+              name: "endAt",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Pledge",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "caller",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Refund",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "caller",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Unpledge",
+          inputs: [
+            {
+              name: "id",
+              type: "uint256",
+              indexed: true,
+              internalType: "uint256",
+            },
+            {
+              name: "caller",
               type: "address",
               indexed: true,
               internalType: "address",
@@ -1375,7 +2134,11 @@ const deployedContracts = {
           anonymous: false,
         },
       ],
-      inheritedFunctions: {},
+      inheritedFunctions: {
+        DOMAIN_SEPARATOR: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol",
+        nonces: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol",
+        permit: "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol",
+      },
     },
   },
 } as const;

@@ -5,6 +5,8 @@ import "../contracts/MerkleAirdropToken.sol";
 import "../contracts/MerkleAirdrop.sol";
 import "../contracts/CFToken.sol";
 import "../contracts/CrowdFund.sol";
+import "../contracts/DutchAuction.sol";
+import { YMNFT } from "../contracts/YMNFT.sol";
 import "./DeployHelpers.s.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
@@ -54,19 +56,34 @@ contract DeployScript is ScaffoldETHDeploy {
     // ===== MerkleAirdrop Script Stop =====
 
     // ===== CrowdFund Script Start =====
-    CFToken cfToken = new CFToken(0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E);
-    CrowdFund crowdFund = new CrowdFund(address(cfToken));
-    console.logString(
-      string.concat(
-        "CFToken deployed at: ", vm.toString(address(cfToken))
-      )
-    );
-    console.logString(
-      string.concat(
-        "CrowdFund deployed at: ", vm.toString(address(crowdFund))
-      )
-    );
+    // CFToken cfToken = new CFToken(0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E);
+    // CrowdFund crowdFund = new CrowdFund(address(cfToken));
+    // console.logString(
+    //   string.concat(
+    //     "CFToken deployed at: ", vm.toString(address(cfToken))
+    //   )
+    // );
+    // console.logString(
+    //   string.concat(
+    //     "CrowdFund deployed at: ", vm.toString(address(crowdFund))
+    //   )
+    // );
     // ===== CrowdFund Script Stop =====
+
+    // ===== DutchAuction Script Start =====
+    DutchAuction dutchAuction = new DutchAuction();
+    console.logString(
+      string.concat(
+        "DutchAuction deployed at: ", vm.toString(address(dutchAuction))
+      )
+    );
+    YMNFT ymnft = new YMNFT(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    console.logString(
+      string.concat(
+        "YMNFT deployed at: ", vm.toString(address(ymnft))
+      )
+    );
+    // ===== DutchAuction Script Stop =====
 
     vm.stopBroadcast();
 

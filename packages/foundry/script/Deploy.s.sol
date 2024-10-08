@@ -77,7 +77,7 @@ contract DeployScript is ScaffoldETHDeploy {
         "DutchAuction deployed at: ", vm.toString(address(dutchAuction))
       )
     );
-    YMNFT ymnft = new YMNFT(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    YMNFT ymnft = new YMNFT(0xFA8Bac84bb8594B7Fc7ACAF932cA680D9A6E495E);
     console.logString(
       string.concat(
         "YMNFT deployed at: ", vm.toString(address(ymnft))

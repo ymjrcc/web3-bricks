@@ -4,6 +4,8 @@ pragma solidity ^0.8.20;
 interface IERC721 {
     function ownerOf(uint256 _nftId) external view returns (address);
     function transferFrom(address _from, address _to, uint256 _nftId) external;
+    function isApprovedForAll(address _owner, address _operator) external view returns (bool);
+    function getApproved(uint256 _nftId) external view returns (address);
 }
 
 contract DutchAuction {
@@ -16,6 +18,8 @@ contract DutchAuction {
     uint32 startAt;
     uint32 duration;
     bool isActive;
+    address buyer;
+    uint256 dealPrice;
   }
 
   mapping(uint256 => Auction) public auctions;
@@ -31,17 +35,21 @@ contract DutchAuction {
     uint256 _endPrice,
     uint32 _duration
   ) external {
+    IERC721 nft = IERC721(_nft);
     require(_nft != address(0), "Invalid nft address");
     require(_startPrice > 0, "Invalid start price");
     require(_endPrice <= _startPrice && _endPrice > 0, "Invalid end price");
     require(_duration > 0, "Invalid duration time");
-    
-    IERC721 nft = IERC721(_nft);
     require(nft.ownerOf(_nftId) == msg.sender, "Caller is not the owner of the NFT");
+    require(
+      nft.isApprovedForAll(msg.sender, address(this)) || 
+      nft.getApproved(_nftId) == address(this), 
+      "NFT is not approved for auction"
+    );
 
     uint256 id = auctionId++;
     Auction storage auction = auctions[id];
-    auction.nft = IERC721(_nft);
+    auction.nft = nft;
     auction.nftId = _nftId;
     auction.seller = payable(msg.sender);
     auction.startPrice = _startPrice;
@@ -71,6 +79,9 @@ contract DutchAuction {
     require(msg.value >= price, "Invalid bid price");
 
     auction.isActive = false;
+    auction.buyer = msg.sender;
+    auction.dealPrice = price;
+
     auction.nft.transferFrom(auction.seller, msg.sender, auction.nftId);
 
     uint256 refund = msg.value - price;
